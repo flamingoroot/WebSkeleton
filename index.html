@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSkeleton - Web Development Services</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+        /* Theme preview placeholders */
+        .theme-preview.ecommerce {
+            background: linear-gradient(135deg, #7e57c2, #b085f5);
+            position: relative;
+        }
+        
+        .theme-preview.portfolio {
+            background: linear-gradient(135deg, #ff5722, #ff9800);
+            position: relative;
+        }
+        
+        .theme-preview.course {
+            background: linear-gradient(135deg, #2ecc71, #4cd964);
+            position: relative;
+        }
+        
+        .theme-preview::after {
+            content: attr(data-theme-name);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            text-transform: capitalize;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-content">
+            <h2>WebSkeleton</h2>
+            <div class="progress-container">
+                <div class="progress-bar" id="loading-progress"></div>
+            </div>
+            <p class="loading-text">Initializing space background...</p>
+            <!-- Loading controls will be added dynamically in JS -->
+        </div>
+        <!-- Stars and tips will be added dynamically in JS -->
+    </div>
+
+    <!-- 3D Background -->
+    <div id="space-background"></div>
+
+    <!-- Main Content -->
+    <div id="main-content" class="hidden">
+        <!-- Header -->
+        <header class="translucent-panel">
+            <div class="logo">
+                <h1><a href="#" data-section="home" style="text-decoration: none; color: inherit;">WebSkeleton</a></h1>
+            </div>
+            
+            <!-- Hamburger Menu -->
+            <div class="hamburger-menu">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#" class="active" data-section="home">Home</a></li>
+                    <li><a href="#" data-section="themes">Themes</a></li>
+                    <li><a href="#" data-section="contact">Contact</a></li>
+                    <li><a href="#" id="login-btn">Sign In</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="translucent-panel content-panel">
+                <h2>Create Your Own <span class="dynamic-word">
+                    <span class="word" data-word="beautiful">Beautiful</span>
+                    <span class="word" data-word="dynamic">Dynamic</span>
+                </span>  Website</h2>
+                <p>Professional web development services with stunning themes for every need</p>
+                <div class="cta-buttons">
+                    <button class="btn primary" id="explore-themes-btn">Explore Themes</button>
+                    <button class="btn secondary" id="book-schedule-btn">Book Schedule</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Themes Section -->
+        <section id="themes" class="section">
+            <div class="translucent-panel content-panel">
+                <h2>Choose Your Perfect Theme</h2>
+                <div class="theme-grid">
+                    <!-- E-commerce Theme -->
+                    <div class="theme-card">
+                        <div class="theme-icon ecommerce">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="theme-info">
+                            <h3>E-commerce Theme</h3>
+                            <p>Coming Soon!</p>
+                            <div class="theme-buttons">
+                                <button class="btn secondary" disabled>Preview</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Course Selling Theme -->
+                    <div class="theme-card">
+                        <div class="theme-icon course">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="theme-info">
+                            <h3>Course Selling</h3>
+                            <p>Designed for educators with course management, student portals and payment processing.</p>
+                            <div class="theme-buttons">
+                                <button class="btn small preview-btn" data-theme="course" data-preview-url="https://webskeleton-course-demo.com">Preview</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Portfolio Theme -->
+                    <div class="theme-card">
+                        <div class="theme-icon portfolio">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <div class="theme-info">
+                            <h3>Portfolio</h3>
+                            <p>Showcase your work with beautiful galleries, project spotlights and contact forms.</p>
+                            <div class="theme-buttons">
+                                <button class="btn small preview-btn" data-theme="portfolio" data-preview-url="https://webskeleton-portfolio-demo.com">Preview</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Dashboard Section -->
+        <div id="admin-dashboard" class="section hidden">
+            <div class="content-panel translucent-panel admin-dashboard">
+                <h2>Admin Dashboard</h2>
+                
+                <div class="admin-stats">
+                    <div class="stat-card">
+                        <h3>Total Users</h3>
+                        <div class="stat-value" id="total-users">0</div>
+                        <div class="stat-label">Registered Users</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Active Bookings</h3>
+                        <div class="stat-value" id="active-bookings">0</div>
+                        <div class="stat-label">Scheduled Meetings</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Theme Downloads</h3>
+                        <div class="stat-value" id="theme-downloads">0</div>
+                        <div class="stat-label">Total Downloads</div>
+                    </div>
+                </div>
+
+                <div class="admin-section">
+                    <h2>Recent Bookings</h2>
+                    <div class="admin-table-wrapper">
+                        <table class="admin-table" id="bookings-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bookings-list">
+                                <!-- Bookings will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="admin-section">
+                    <h2>Registered Users</h2>
+                    <div class="admin-table-wrapper">
+                        <table class="admin-table" id="users-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Join Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="users-list">
+                                <!-- Users will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <div class="content-panel translucent-panel">
+                <h2>Contact Us</h2>
+                
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <div class="contact-method">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:rohitky9910@gmail.com">rohitky9910@gmail.com</a>
+                    </div>
+                    <div class="contact-method">
+                        <i class="fas fa-phone"></i>
+                        <a href="tel:+919818480868">+91 98184 80868</a>
+                    </div>
+                </div>
+
+                <div class="contact-steps">
+                    <div class="step active" data-step="1">
+                        <div class="step-number">1</div>
+                        <div class="step-text">Your Info</div>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="step" data-step="2">
+                        <div class="step-number">2</div>
+                        <div class="step-text">Choose Time</div>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="step" data-step="3">
+                        <div class="step-number">3</div>
+                        <div class="step-text">Confirm</div>
+                    </div>
+                </div>
+                
+                <form id="contact-form">
+                    <div class="form-step active" data-step="1">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="4" required></textarea>
+                        </div>
+                        <button type="button" class="btn primary next-step">Next: Choose Time</button>
+                    </div>
+                    
+                    <div class="form-step" data-step="2">
+                        <div class="date-time-picker">
+                            <div class="date-picker">
+                                <h3>Select a Date</h3>
+                                <div class="calendar" id="booking-calendar">
+                                    <!-- Calendar will be generated by JavaScript -->
+                                </div>
+                            </div>
+                            <div class="time-picker">
+                                <h3>Select a Time</h3>
+                                <div class="time-slots" id="time-slots">
+                                    <!-- Time slots will be generated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-navigation">
+                            <button type="button" class="btn prev-step">Previous</button>
+                            <button type="button" class="btn primary next-step">Next: Confirm</button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-step" data-step="3">
+                        <div class="confirmation-summary">
+                            <h3>Confirm Your Booking</h3>
+                            <div class="summary-item">
+                                <span class="summary-label">Name:</span>
+                                <span class="summary-value" id="summary-name"></span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Email:</span>
+                                <span class="summary-value" id="summary-email"></span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Phone:</span>
+                                <span class="summary-value" id="summary-phone"></span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Date:</span>
+                                <span class="summary-value" id="summary-date"></span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Time:</span>
+                                <span class="summary-value" id="summary-time"></span>
+                            </div>
+                            <div class="summary-item full-width">
+                                <span class="summary-label">Message:</span>
+                                <span class="summary-value" id="summary-message"></span>
+                            </div>
+                        </div>
+                        <div class="form-navigation">
+                            <button type="button" class="btn prev-step">Previous</button>
+                            <button type="submit" class="btn primary submit-btn">
+                                <span class="btn-text">Submit</span>
+                                <span class="btn-icon"><i class="fas fa-paper-plane"></i></span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <input type="hidden" id="date" name="date">
+                    <input type="hidden" id="time" name="time">
+                </form>
+            </div>
+        </section>
+
+        <!-- Theme Preview Modal -->
+        <div id="theme-preview-modal" class="modal hidden">
+            <div class="modal-content translucent-panel">
+                <span class="close-modal">&times;</span>
+                <h2>Theme Preview</h2>
+                <div class="theme-preview-content">
+                    <div class="preview-image">
+                        <div id="preview-image" class="theme-preview" data-theme-name=""></div>
+                        <div class="preview-buttons">
+                            <a href="#" id="live-preview-btn" class="btn" target="_blank">Live Preview</a>
+                        </div>
+                    </div>
+                    <div class="preview-description">
+                        <h3 id="preview-title"></h3>
+                        <p id="preview-description"></p>
+                        <div class="preview-features">
+                            <h4>Features:</h4>
+                            <ul id="preview-features-list">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Authentication Modal -->
+        <div id="auth-modal" class="modal hidden">
+            <div class="modal-content translucent-panel">
+                <span class="close-modal">&times;</span>
+                <div class="auth-tabs">
+                    <div class="tab active" data-tab="sign-in">Sign In</div>
+                    <div class="tab" data-tab="sign-up">Sign Up</div>
+                </div>
+                
+                <!-- Sign In Form -->
+                <div id="sign-in-form" class="auth-form active">
+                    <div class="error-message" id="login-error"></div>
+                    <div class="google-sign-in">
+                        <div id="g_id_onload"
+                             data-client_id="your-google-client-id"
+                             data-callback="handleCredentialResponse">
+                        </div>
+                        <div class="g_id_signin"
+                             data-type="standard"
+                             data-size="large"
+                             data-theme="outline"
+                             data-text="sign_in_with"
+                             data-shape="rectangular"
+                             data-logo_alignment="center">
+                        </div>
+                    </div>
+                    <div class="or-divider">
+                        <span>OR</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="sign-in-email">Email</label>
+                        <input type="email" id="sign-in-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sign-in-password">Password</label>
+                        <input type="password" id="sign-in-password" required>
+                    </div>
+                    <div class="form-group remember-me">
+                        <input type="checkbox" id="remember-me">
+                        <label for="remember-me">Remember me</label>
+                    </div>
+                    <button type="submit" class="btn primary">Sign In</button>
+                    <button type="button" class="btn secondary" id="admin-login-btn">Admin Login</button>
+                </div>
+                
+                <!-- Sign Up Form -->
+                <div id="sign-up-form" class="auth-form">
+                    <div class="google-sign-in">
+                        <div id="g_id_signup"
+                             data-client_id="your-google-client-id"
+                             data-callback="handleCredentialResponse">
+                        </div>
+                        <div class="g_id_signin"
+                             data-type="standard"
+                             data-size="large"
+                             data-theme="outline"
+                             data-text="signup_with"
+                             data-shape="rectangular"
+                             data-logo_alignment="center">
+                        </div>
+                    </div>
+                    <div class="or-divider">
+                        <span>OR</span>
+                    </div>
+                    <form>
+                        <div class="form-group">
+                            <label for="sign-up-name">Full Name</label>
+                            <input type="text" id="sign-up-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="sign-up-email">Email</label>
+                            <input type="email" id="sign-up-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="sign-up-password">Password</label>
+                            <input type="password" id="sign-up-password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="sign-up-confirm-password">Confirm Password</label>
+                            <input type="password" id="sign-up-confirm-password" required>
+                        </div>
+                        <button type="submit" class="btn primary">Sign Up</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Dashboard (Hidden until logged in) -->
+        <section id="dashboard" class="section hidden">
+            <div class="translucent-panel content-panel">
+                <h2>Welcome, <span id="user-name">User</span>!</h2>
+                <div class="dashboard-tabs">
+                    <div class="tab active" data-dashboard-tab="profile">Profile</div>
+                    <div class="tab" data-dashboard-tab="orders">Orders</div>
+                    <div class="tab" data-dashboard-tab="themes">My Themes</div>
+                </div>
+                
+                <!-- Profile Tab -->
+                <div id="profile-tab" class="dashboard-content active">
+                    <div class="profile-info">
+                        <div class="profile-picture">
+                            <img id="profile-img" src="assets/images/default-profile.jpg" alt="Profile Picture">
+                            <button class="btn small">Change</button>
+                        </div>
+                        <div class="profile-details">
+                            <div class="form-group">
+                                <label for="profile-name">Name</label>
+                                <input type="text" id="profile-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="profile-email">Email</label>
+                                <input type="email" id="profile-email" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="profile-phone">Phone</label>
+                                <input type="tel" id="profile-phone">
+                            </div>
+                            <button class="btn primary">Save Changes</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Orders Tab -->
+                <div id="orders-tab" class="dashboard-content">
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Date</th>
+                                <th>Theme</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-list">
+                            <!-- This will be populated dynamically -->
+                            <tr>
+                                <td colspan="5">No orders yet</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- My Themes Tab -->
+                <div id="themes-tab" class="dashboard-content">
+                    <div class="theme-downloads">
+                        <!-- This will be populated dynamically -->
+                        <p>You haven't tried any themes yet. <a href="#" data-section="themes">Explore themes</a> to get started.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="js/three.min.js"></script>
+    <script src="js/space-background.js"></script>
+    <script src="js/cursor-highlight.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html> 
